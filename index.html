@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harsh Editx | Premium Portfolio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        display: ['Cinzel', 'serif'],
+                    },
+                    colors: {
+                        gold: '#D4AF37',
+                        'gold-light': '#F3E5AB',
+                        'gold-dark': '#AA7C11',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F3E5AB;
+        }
+
+        /* Premium Gold Gradient Text */
+        .gold-gradient {
+            background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #AA7C11 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gold-glow {
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Glassmorphism Effects */
+        .glass-panel {
+            background: rgba(15, 15, 15, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .glass-nav {
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        /* Smooth Image Reveal */
+        .image-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+        }
+
+        /* Scroll Animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .fade-in {
+            opacity: 0;
+            transition: opacity 1.2s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+        }
+        .zoom-in {
+            transform: scale(1.1);
+            transition: transform 10s ease-out;
+        }
+        .zoom-in.visible {
+            transform: scale(1);
+        }
+    </style>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="selection:bg-gold selection:text-black">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 bg-transparent py-8">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center gap-3 fade-in">
+                <div class="relative flex items-center justify-center w-10 h-10">
+                    <i data-lucide="camera" class="text-gold w-8 h-8" stroke-width="1.5"></i>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="#D4AF37" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-0.5 mt-0.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    </div>
+                </div>
+                <span class="font-display font-bold text-2xl tracking-widest gold-gradient gold-glow uppercase hidden sm:block">
+                    Harsh Editx
+                </span>
+            </div>
+            
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex gap-10 text-xs font-semibold tracking-[0.2em] uppercase text-gray-300 fade-in">
+                <a href="#home" class="hover:text-gold transition-colors duration-300">Home</a>
+                <a href="#about" class="hover:text-gold transition-colors duration-300">About</a>
+                <a href="#portfolio" class="hover:text-gold transition-colors duration-300">Portfolio</a>
+                <a href="#services" class="hover:text-gold transition-colors duration-300">Services</a>
+                <a href="#contact" class="hover:text-gold transition-colors duration-300">Contact</a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="menu-btn" class="md:hidden text-gold fade-in">
+                <i data-lucide="menu" class="w-7 h-7"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-black/95 pt-32 px-8 flex flex-col gap-8 text-2xl font-display uppercase tracking-widest text-center hidden opacity-0 transition-opacity duration-300 backdrop-blur-md">
+        <button id="close-menu-btn" class="absolute top-8 right-6 text-gold">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <a href="#home" class="mobile-link hover:text-gold transition-colors">Home</a>
+        <a href="#about" class="mobile-link hover:text-gold transition-colors">About</a>
+        <a href="#portfolio" class="mobile-link hover:text-gold transition-colors">Portfolio</a>
+        <a href="#services" class="mobile-link hover:text-gold transition-colors">Services</a>
+        <a href="#contact" class="mobile-link hover:text-gold transition-colors">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black z-10"></div>
+            <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=2070&auto=format&fit=crop" alt="Workspace" class="w-full h-full object-cover opacity-60 zoom-in">
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-20 fade-up">
+            <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-[1.1] tracking-tight mb-6">
+                Capture Moments.<br/>
+                <span class="gold-gradient gold-glow">Create Cinematic Stories.</span>
+            </h1>
+            <p class="text-gray-300 text-lg md:text-xl font-light tracking-wide max-w-2xl mx-auto mb-10">
+                Award-winning videography and high-end editing for brands, weddings, and creators who demand perfection.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+                <a href="#portfolio" class="px-10 py-4 bg-gold text-black font-bold uppercase tracking-[0.2em] text-xs hover:bg-gold-light transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+                    Explore Portfolio
+                </a>
+                <a href="#contact" class="px-10 py-4 border border-gold/50 text-gold font-bold uppercase tracking-[0.2em] text-xs hover:bg-gold/10 transition-all duration-300">
+                    Book a Session
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-32 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="relative aspect-[4/5] w-full max-w-md mx-auto lg:mx-0 fade-up overflow-hidden">
+                <div class="absolute inset-0 border-2 border-gold/30 translate-x-4 translate-y-4 z-0"></div>
+                <!-- User Provided Image -->
+                <img src="IMG_3291.JPG.jpeg" alt="Harsh Editx" class="relative z-10 w-full h-full object-cover">
+                
+                <div class="absolute bottom-[-20px] right-[-20px] z-20 glass-panel p-6 max-w-[200px]">
+                    <p class="font-display text-gold text-3xl font-bold">5+</p>
+                    <p class="text-xs uppercase tracking-widest text-gray-300 mt-1">Years of Excellence</p>
+                </div>
+            </div>
+
+            <div class="fade-up" style="transition-delay: 0.2s;">
+                <h4 class="text-gold text-sm font-bold tracking-[0.3em] uppercase mb-4">The Artist Behind The Lens</h4>
+                <h2 class="font-display text-4xl md:text-5xl uppercase font-bold mb-8 leading-tight">
+                    Crafting Visual <br/> Masterpieces
+                </h2>
+                <div class="space-y-6 text-gray-400 font-light leading-relaxed text-lg">
+                    <p>
+                        I am Harsh, a professional cinematographer and video editor dedicated to transforming ordinary moments into extraordinary cinematic experiences. With a profound passion for visual storytelling, I specialize in high-end commercial shoots, luxury weddings, and dynamic social media content.
+                    </p>
+                    <p>
+                        My studio is equipped with industry-leading gear and a state-of-the-art editing suite, ensuring every frame is color-graded to perfection and every transition feels seamless. I don't just record video; I craft emotion.
+                    </p>
+                </div>
+                <a href="#contact" class="inline-flex items-center gap-2 mt-10 text-gold uppercase tracking-[0.2em] text-sm font-bold hover:text-gold-light transition-colors group">
+                    Work With Me 
+                    <i data-lucide="chevron-right" class="w-4 h-4 transform group-hover:translate-x-2 transition-transform"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-32 bg-[#050505]">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="text-center mb-20 fade-up">
+                <h4 class="text-gold text-sm font-bold tracking-[0.3em] uppercase mb-4">Featured Work</h4>
+                <h2 class="font-display text-4xl md:text-6xl uppercase font-bold">Premium Portfolio</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Item 1 -->
+                <div class="group relative aspect-[4/3] overflow-hidden bg-black cursor-pointer fade-up">
+                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop" alt="Wedding" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-70 group-hover:opacity-100">
+                    <div class="absolute inset-0 image-overlay opacity-80 group-hover:opacity-90 transition-opacity duration-500 flex flex-col justify-end p-10">
+                        <div class="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
+                            <p class="text-gold text-xs font-bold uppercase tracking-[0.3em] mb-3">Wedding Shoot</p>
+                            <h3 class="font-display text-3xl md:text-4xl uppercase text-white">Eternal Vows</h3>
+                            <div class="w-0 h-[2px] bg-gold mt-6 group-hover:w-16 transition-all duration-700 delay-300"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Item 2 -->
+                <div class="group relative aspect-[4/3] overflow-hidden bg-black cursor-pointer fade-up" style="transition-delay: 0.1s;">
+                    <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=2070&auto=format&fit=crop" alt="Cinematic" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-70 group-hover:opacity-100">
+                    <div class="absolute inset-0 image-overlay opacity-80 group-hover:opacity-90 transition-opacity duration-500 flex flex-col justify-end p-10">
+                        <div class="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
+                            <p class="text-gold text-xs font-bold uppercase tracking-[0.3em] mb-3">Cinematic Video</p>
+                            <h3 class="font-display text-3xl md:text-4xl uppercase text-white">Neon Nights</h3>
+                            <div class="w-0 h-[2px] bg-gold mt-6 group-hover:w-16 transition-all duration-700 delay-300"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Item 3 -->
+                <div class="group relative aspect-[4/3] overflow-hidden bg-black cursor-pointer fade-up">
+                    <img src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?q=80&w=2070&auto=format&fit=crop" alt="Drone" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-70 group-hover:opacity-100">
+                    <div class="absolute inset-0 image-overlay opacity-80 group-hover:opacity-90 transition-opacity duration-500 flex flex-col justify-end p-10">
+                        <div class="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
+                            <p class="text-gold text-xs font-bold uppercase tracking-[0.3em] mb-3">Drone Shots</p>
+                            <h3 class="font-display text-3xl md:text-4xl uppercase text-white">Above the Clouds</h3>
+                            <div class="w-0 h-[2px] bg-gold mt-6 group-hover:w-16 transition-all duration-700 delay-300"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Item 4 -->
+                <div class="group relative aspect-[4/3] overflow-hidden bg-black cursor-pointer fade-up" style="transition-delay: 0.1s;">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=2064&auto=format&fit=crop" alt="Portraits" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-70 group-hover:opacity-100">
+                    <div class="absolute inset-0 image-overlay opacity-80 group-hover:opacity-90 transition-opacity duration-500 flex flex-col justify-end p-10">
+                        <div class="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
+                            <p class="text-gold text-xs font-bold uppercase tracking-[0.3em] mb-3">Creative Portraits</p>
+                            <h3 class="font-display text-3xl md:text-4xl uppercase text-white">Golden Hour</h3>
+                            <div class="w-0 h-[2px] bg-gold mt-6 group-hover:w-16 transition-all duration-700 delay-300"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 text-center fade-up">
+                <a href="https://instagram.com/harsh._editx._" target="_blank" class="inline-block px-10 py-4 border border-gold/30 text-white font-bold uppercase tracking-[0.2em] text-xs hover:border-gold hover:text-gold transition-all duration-300">
+                    View Full Gallery on Instagram
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-32 px-6 md:px-12 max-w-7xl mx-auto relative">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gold/5 rounded-full blur-[120px] pointer-events-none"></div>
+        
+        <div class="text-center mb-20 relative z-10 fade-up">
+            <h4 class="text-gold text-sm font-bold tracking-[0.3em] uppercase mb-4">What I Do</h4>
+            <h2 class="font-display text-4xl md:text-6xl uppercase font-bold">Luxury Services</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
+            <!-- Service 1 -->
+            <div class="glass-panel p-10 md:p-12 group hover:-translate-y-2 transition-transform duration-500 fade-up">
+                <div class="text-gold mb-8 transform group-hover:scale-110 transition-transform duration-500">
+                    <i data-lucide="monitor-play" class="w-8 h-8"></i>
+                </div>
+                <h3 class="font-display text-2xl uppercase tracking-wider mb-4 text-white">Cinematic Editing</h3>
+                <p class="text-gray-400 text-base leading-relaxed font-light">High-end color grading, seamless transitions, and professional timeline mastery.</p>
+            </div>
+            <!-- Service 2 -->
+            <div class="glass-panel p-10 md:p-12 group hover:-translate-y-2 transition-transform duration-500 fade-up" style="transition-delay: 0.1s;">
+                <div class="text-gold mb-8 transform group-hover:scale-110 transition-transform duration-500">
+                    <i data-lucide="heart" class="w-8 h-8"></i>
+                </div>
+                <h3 class="font-display text-2xl uppercase tracking-wider mb-4 text-white">Wedding Films</h3>
+                <p class="text-gray-400 text-base leading-relaxed font-light">Capturing your eternal vows with a luxurious, storytelling approach.</p>
+            </div>
+            <!-- Service 3 -->
+            <div class="glass-panel p-10 md:p-12 group hover:-translate-y-2 transition-transform duration-500 fade-up">
+                <div class="text-gold mb-8 transform group-hover:scale-110 transition-transform duration-500">
+                    <i data-lucide="film" class="w-8 h-8"></i>
+                </div>
+                <h3 class="font-display text-2xl uppercase tracking-wider mb-4 text-white">Commercial Video</h3>
+                <p class="text-gray-400 text-base leading-relaxed font-light">Ultra HD visuals and dynamic editing for premium brand campaigns.</p>
+            </div>
+            <!-- Service 4 -->
+            <div class="glass-panel p-10 md:p-12 group hover:-translate-y-2 transition-transform duration-500 fade-up" style="transition-delay: 0.1s;">
+                <div class="text-gold mb-8 transform group-hover:scale-110 transition-transform duration-500">
+                    <i data-lucide="share-2" class="w-8 h-8"></i>
+                </div>
+                <h3 class="font-display text-2xl uppercase tracking-wider mb-4 text-white">Social Content</h3>
+                <p class="text-gray-400 text-base leading-relaxed font-light">Engaging, high-retention short-form content tailored for modern platforms.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-32 px-6 md:px-12 max-w-7xl mx-auto text-center relative">
+        <div class="glass-panel p-12 md:p-24 relative overflow-hidden fade-up">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold to-transparent opacity-50"></div>
+            
+            <h2 class="font-display text-4xl md:text-6xl uppercase font-bold mb-6">Let's Create Something <br/><span class="gold-gradient">Amazing Together</span></h2>
+            <p class="text-gray-400 text-lg mb-12 font-light max-w-2xl mx-auto">
+                Elevate your brand or capture your special day with ultra-premium cinematic visuals. Reach out to discuss your next big project.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+                <a href="https://instagram.com/harsh._editx._" target="_blank" class="flex items-center gap-3 px-10 py-5 bg-gold text-black font-bold uppercase tracking-[0.2em] text-xs hover:bg-gold-light transition-all duration-300 w-full sm:w-auto justify-center shadow-[0_0_20px_rgba(212,175,55,0.2)]">
+                    <i data-lucide="instagram" class="w-5 h-5"></i>
+                    DM on Instagram
+                </a>
+                <a href="mailto:contact@harsheditx.com" class="flex items-center gap-3 px-10 py-5 border border-gold/50 text-gold font-bold uppercase tracking-[0.2em] text-xs hover:bg-gold/10 transition-all duration-300 w-full sm:w-auto justify-center">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                    Email Me
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-12 px-6 text-center text-xs text-gray-500 uppercase tracking-[0.2em] bg-black">
+        <div class="flex justify-center mb-6 opacity-50">
+            <div class="flex items-center gap-3">
+                <div class="relative flex items-center justify-center w-8 h-8">
+                    <i data-lucide="camera" class="text-gold w-6 h-6" stroke-width="1.5"></i>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="#D4AF37" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-0.5 mt-0.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    </div>
+                </div>
+                <span class="font-display font-bold text-xl tracking-widest gold-gradient uppercase">Harsh Editx</span>
+            </div>
+        </div>
+        <p>&copy; 2024 Harsh Editx. All rights reserved.</p>
+        <p class="mt-2">Premium Cinematography & Video Editing</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('glass-nav', 'py-4');
+                navbar.classList.remove('bg-transparent', 'py-8');
+            } else {
+                navbar.classList.add('bg-transparent', 'py-8');
+                navbar.classList.remove('glass-nav', 'py-4');
+            }
+        });
+
+        // Mobile Menu Logic
+        const menuBtn = document.getElementById('menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function openMenu() {
+            mobileMenu.classList.remove('hidden');
+            // small delay to allow display:block to apply before changing opacity
+            setTimeout(() => {
+                mobileMenu.classList.remove('opacity-0');
+            }, 10);
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.add('opacity-0');
+            setTimeout(() => {
+                mobileMenu.classList.add('hidden');
+            }, 300); // matches duration-300
+        }
+
+        menuBtn.addEventListener('click', openMenu);
+        closeMenuBtn.addEventListener('click', closeMenu);
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Scroll Animations (Intersection Observer)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Optional: Stop observing once animated
+                    // observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Select all elements with animation classes
+        const animatedElements = document.querySelectorAll('.fade-up, .fade-in, .zoom-in');
+        animatedElements.forEach(el => observer.observe(el));
+
+        // Trigger initial animations on load
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.zoom-in').forEach(el => el.classList.add('visible'));
+            setTimeout(() => {
+                document.querySelectorAll('#home .fade-up').forEach(el => el.classList.add('visible'));
+            }, 300);
+        });
+    </script>
+</body>
+</html>
